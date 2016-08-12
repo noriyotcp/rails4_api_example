@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # for API
   namespace :api, { format: 'json' } do # returns json only
     namespace :v1 do
+      resources :users
       namespace :users do
         get "/", action: "index"
       end
