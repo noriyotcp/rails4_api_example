@@ -19,13 +19,25 @@
 require 'database_cleaner'
 
 RSpec.configure do |config|
+  # load Factory at an each test
   config.before(:all) do
     FactoryGirl.reload
   end
+
+  # database_cleaner
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
   end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.append_after(:each) do
+    DatabaseCleaner.clean
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
