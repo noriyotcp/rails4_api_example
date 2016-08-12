@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  # for API
+  namespace :api, { format: 'json' } do # returns json only
+    namespace :v1 do
+      namespace :users do
+        get "/", action: "index"
+      end
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
