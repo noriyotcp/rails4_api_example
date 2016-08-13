@@ -42,4 +42,24 @@ RSpec.describe "Users", type: :request do
       expect(json["addr2"]).to eq user.addr2
     end
   end
+
+  describe 'POST api/v1/users' do
+    it 'shoud create a user' do
+      address = Gimei.address
+      params = { name: Gimei.kanji,
+                         addr1: address.prefecture.kanji,
+                         addr2: address.city.kanji + address.town.kanji }
+
+     expect {
+       post api_v1_users_path(format: :json), params
+     }.to change { User.count }.by 1
+
+     expect(response).to have_http_status 201
+
+      json = JSON.parse(response.body)
+      expect(json["name"]).to eq params[:name]
+      expect(json["addr1"]).to eq params[:addr1]
+      expect(json["addr2"]).to eq params[:addr2]
+    end
+  end
 end
