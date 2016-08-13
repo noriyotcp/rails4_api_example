@@ -65,4 +65,27 @@ RSpec.describe "Users", type: :request do
       expect(response.location).to eq api_v1_user_url(User.last)
     end
   end
+
+  describe 'PATCH api/v1/users/:id' do
+    let(:user) { FactoryGirl.create(:user) }
+
+    it 'shoud create a user' do
+      address = Gimei.address
+      params = { name: Gimei.kanji,
+                         addr1: address.prefecture.kanji,
+                         addr2: address.city.kanji + address.town.kanji }
+
+      patch api_v1_user_path(user.id, format: :json), params
+
+      expect(response).to have_http_status :ok
+
+      json = JSON.parse(response.body)
+      expect(json["name"]).to eq params[:name]
+      expect(json["addr1"]).to eq params[:addr1]
+      expect(json["addr2"]).to eq params[:addr2]
+
+      # Expect that location is the url of a show page for a new user
+      expect(response.location).to eq api_v1_user_url(User.last)
+    end
+  end
 end
