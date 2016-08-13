@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update]
+  before_action :set_user, only: [:show, :update, :destroy]
 
   def index
     return @users = User.all if params.blank?
@@ -31,6 +31,13 @@ class Api::V1::UsersController < ApplicationController
       render :show, status: :ok, location: [:api, :v1, @user]
     else
       render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @user.destroy
+    respond_to do |format|
+      format.json { head :no_content }
     end
   end
 
