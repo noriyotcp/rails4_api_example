@@ -1,10 +1,9 @@
 class Api::V1::UsersController < ApplicationController
   def index
-    return @users = User.all if user_params.blank?
-    @users = User.name_like(user_params[:name])
-                 .by_addr1(user_params[:addr1])
-                 .by_addr2(user_params[:addr2])
-
+    return @users = User.all if params.blank?
+    @users = User.name_like(params[:name])
+                 .by_addr1(params[:addr1])
+                 .addr2_like(params[:addr2])
     # not use jbuilder
     # @users = @users.map do |user|
     #   {
