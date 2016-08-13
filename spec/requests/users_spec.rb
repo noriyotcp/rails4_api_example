@@ -88,4 +88,15 @@ RSpec.describe "Users", type: :request do
       expect(response.location).to eq api_v1_user_url(User.last)
     end
   end
+
+  describe 'DELETE /api/v1/users/:id' do
+    let!(:user) { FactoryGirl.create(:user) }
+
+    it "should destroy the user" do
+      expect {
+         delete api_v1_user_path(user.id, format: :json)
+       }.to change { User.count }.by(-1)
+      expect(response).to have_http_status :no_content
+    end
+  end
 end
