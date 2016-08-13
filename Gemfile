@@ -39,6 +39,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'gimei'
   gem 'pry'
+  gem "paranoia", "~> 2.0"
 end
 
 group :test do

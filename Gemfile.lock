@@ -86,6 +86,8 @@ GEM
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
+    paranoia (2.1.5)
+      activerecord (~> 4.0)
     pkg-config (1.1.7)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -185,6 +187,7 @@ DEPENDENCIES
   gimei
   jbuilder (~> 2.0)
   jquery-rails
+  paranoia (~> 2.0)
   pry
   rails (= 4.2.5)
   rspec-rails (~> 3.5)
