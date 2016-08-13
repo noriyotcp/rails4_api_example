@@ -60,6 +60,9 @@ RSpec.describe "Users", type: :request do
       expect(json["name"]).to eq params[:name]
       expect(json["addr1"]).to eq params[:addr1]
       expect(json["addr2"]).to eq params[:addr2]
+
+      # Expect that location is the url of a show page for a new user
+      expect(response.location).to eq api_v1_user_url(User.last)
     end
   end
 end
