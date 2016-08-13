@@ -5,7 +5,7 @@ RSpec.describe "Users", type: :request do
     let!(:users) { FactoryGirl.create_list(:user, 2) }
     let!(:saitamas) { FactoryGirl.create_list(:user, 2, :saitama) }
 
-    before { get api_v1_users_path(addr1: "Tokyo", format: :json) }
+    before { get api_v1_users_path(addr1: "東京都", format: :json) }
 
     it "works! (now write some real specs)" do
       expect(response).to have_http_status(200)
