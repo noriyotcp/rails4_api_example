@@ -1,4 +1,6 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :set_user, only: [:show, :update]
+
   def index
     return @users = User.all if params.blank?
     @users = User.name_like(params[:name])
@@ -24,7 +26,19 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def update
+    if @user.update(user_params)
+      render :show, status: :ok, location: [:api, :v1, @user]
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.permit(:name, :addr1, :addr2)
