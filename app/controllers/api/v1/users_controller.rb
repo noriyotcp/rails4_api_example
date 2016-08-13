@@ -1,6 +1,10 @@
 class Api::V1::UsersController < ApplicationController
   def index
-    @users = User.where("addr1 = ?", user_params[:addr1])
+    return @users = User.all if user_params.blank?
+    @users = User.name_like(user_params[:name])
+                 .by_addr1(user_params[:addr1])
+                 .by_addr2(user_params[:addr2])
+
     # not use jbuilder
     # @users = @users.map do |user|
     #   {
@@ -26,6 +30,6 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:addr1)
+    params.permit(:name, :addr1, :addr2)
   end
 end
