@@ -40,6 +40,8 @@ group :development, :test do
   gem 'gimei'
   gem 'pry'
   gem "paranoia", "~> 2.0"
+  gem 'rubocop', require: false
+  gem 'rails_best_practices'
 end
 
 group :test do
